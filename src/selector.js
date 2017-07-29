@@ -6,25 +6,12 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
   }
   if (matchFunc(startEl)){
       resultSet.push(startEl);
-    }
-  // traverse the DOM tree and collect matching elements in resultSet
-  // use matchFunc to identify matching elements
-
-  // loop through starting elements; if any match, then push into resultSet
+  }
   for (var i=0; i<startEl.children.length; i++){
       resultSet = resultSet.concat(traverseDomAndCollectElements(matchFunc, startEl.children[i]))
-      
   }
-
-  
-
-  // if (matchFunc(X) === true){
-  //   resultSet.push(X)
-  // }
-  
   return resultSet;
 };
-
 
 // detect and return the type of selector
 // return one of these types: id, class, tag.class, tag
