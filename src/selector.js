@@ -37,54 +37,37 @@ var matchFunctionMaker = function(selector) {
   var selectorType = selectorTypeMatcher(selector);
   var matchFunction;
   if (selectorType === "id") {
-    // define matchFunction for id
     matchFunction = function(newEl){
-      if (newEl.id === selector.slice(1)){
-        return true;
-      } else {
-        return false 
-      }
-    }
-
+      // if (newEl.id === selector.slice(1)) return true;
+      // return false; 
+      return newEl.id === selector.slice(1);
+    };
   } else if (selectorType === "class") {
-    // define matchFunction for class
-
     matchFunction = function(newEl){
-      // put the 3 classes in an array 
       var classArray= newEl.className.split(" ");
-      // make a for loop
-      for (var i=0; i<classArray.length; i++){
-          if (classArray[i]=== selector.slice(1)){
-            return true;
-          }
-      }
-      return false;
+    //   for (var i=0; i<classArray.length; i++){
+    //       if (classArray[i]=== selector.slice(1)){
+    //         return true;
+    //       }
+    //   }
+    //   return false;
+    // }
+      return classArray.indexOf(selector.slice(1)) !== -1; 
     }
-
   } else if (selectorType === "tag.class") {
     // define matchFunction for tag.class
       matchFunction = function(newEl){
-        var selectorArray = selector.split(".")
+        var tag = selector.split(".")[0];
+        var tagClass = selector.split(".")[1];
         var classArray = newEl.className.split(" ");
-        if (classArray.includes(selectorArray[1]) && newEl.tagName.toLowerCase()=== selectorArray[0]){
-          return true;
-        } else {
-          return false;
-        }
+        return classArray.indexOf(tagClass) !== -1 && newEl.tagName.toLowerCase()=== tag; 
       }
-
   } else if (selectorType === "tag") {
     // define matchFunction for tag
     matchFunction = function(newEl){
-      console.log(newEl.tagName)
-      if (newEl.tagName.toLowerCase() === selector){
-        return true;
-      } else {
-        return false;
-      }
+      return newEl.tagName.toLowerCase() === selector;
     }
-
-  }
+  } 
   return matchFunction;
 };
 
